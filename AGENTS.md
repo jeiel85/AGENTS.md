@@ -23,6 +23,7 @@ Version Files: AGENTS.md
 Build/Test Commands: N/A
 Release Trigger: tag push
 CI System: GitHub Actions
+Expected Assets: APK, EXE, MSI, ZIP (프로젝트에 따라 수정)
 ```
 
 원칙적으로 이 파일은 공통 규칙만 담고, 프로젝트 고유 정책은 `Primary Spec`, `Task Document`, `Decision Log`에 기록합니다.
@@ -561,7 +562,7 @@ Closes #123
 
 ## 23. 릴리즈 및 배포 확인
 
-릴리즈 또는 주요 기능 푸시 후에는 CI/CD 상태와 산출물을 확인합니다.
+릴리즈 또는 주요 기능 푸시 후에는 CI/CD 상태와 산출물을 확인합니다. 특히 `Expected Assets`에 명시된 실제 구동 가능 파일이 정상적으로 생성되어 릴리즈 애셋에 업로드되었는지 반드시 체크합니다.
 
 ```bash
 gh run list --limit 10
@@ -573,8 +574,8 @@ gh release view vX.Y.Z
 
 - GitHub Actions 성공 여부
 - 릴리즈 생성 여부
-- APK/AAB/EXE/MSI/ZIP 등 산출물 업로드 여부
-- 산출물 파일 크기가 0이 아닌지
+- **구동 파일 존재 확인**: APK, AAB, EXE, MSI, DMG, ZIP 등 실행 가능한 산출물 업로드 여부
+- **산출물 유효성**: 파일 크기가 0이 아니며, 예상되는 파일 확장자를 가지고 있는지 확인
 - 릴리즈 노트가 최신 변경 사항을 반영하는지
 - `CHANGELOG.md`와 릴리즈 노트가 서로 모순되지 않는지
 - 배포 페이지 또는 문서 사이트가 의도한 소스를 서빙하는지

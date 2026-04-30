@@ -1,5 +1,11 @@
 # CHANGELOG.md
 
+## v0.1.1 - 2026-04-30
+
+### Added
+- `AGENTS.md` 프로젝트 설정값에 `Expected Assets` 항목 추가
+- 릴리즈 시 APK, EXE 등 실제 구동 파일의 생성 및 유효성 확인 규칙 강화 (Section 23)
+
 ## v0.1.0 - 2026-04-29
 
 ### Added
