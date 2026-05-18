@@ -23,7 +23,7 @@ Version Files: AGENTS.md
 Build/Test Commands: N/A
 Release Trigger: tag push
 CI System: GitHub Actions
-Expected Assets: APK, EXE, MSI, ZIP (프로젝트에 따라 수정)
+Expected Assets: APK, AAB, EXE, MSI, ZIP (프로젝트에 따라 수정)
 ```
 
 원칙적으로 이 파일은 공통 규칙만 담고, 프로젝트 고유 정책은 `Primary Spec`, `Task Document`, `Decision Log`에 기록합니다.
@@ -62,6 +62,7 @@ Expected Assets: APK, EXE, MSI, ZIP (프로젝트에 따라 수정)
 - 롤백이 어려운 데이터 마이그레이션
 - 시크릿, 인증서, API 키, 릴리즈 키 관련 변경
 - 유료 서비스, 외부 API, 로그인, 결제, 분석 도구 추가
+- 광고 SDK, Play Games Services, 원격 설정, crash reporting 등 외부 콘솔 설정이 필요한 기능 추가
 - 프로젝트 정책과 충돌하는 의존성 추가
 - 되돌리기 어려운 배포 또는 릴리즈 조작
 
@@ -453,6 +454,8 @@ git diff
 
 릴리즈 노트는 자동 생성된 커밋 목록만 사용하지 않고, 사용자가 이해하기 쉬운 변경 요약으로 직접 정리합니다.
 
+GitHub Release 본문, 스토어 등록용 릴리즈 노트, 앱 내 공지 문구가 분리되어 있다면 각각의 목적에 맞게 따로 작성합니다.
+
 권장 형식:
 
 ```md
@@ -476,6 +479,14 @@ git diff
 - 
 ```
 
+릴리즈 노트 파일을 별도로 관리하는 프로젝트에서는 아래 규칙을 권장합니다.
+
+- GitHub Release 본문: `docs/releases/vX.Y.Z.md`
+- 모바일 스토어 등록용 본문: `play_store/release_notes/vX.Y.Z.txt`
+- 파일명은 태그 이름과 정확히 일치시키고, 접두사 `v`를 포함합니다.
+- 스토어 등록용 본문은 플랫폼 제한을 지킵니다. 예: Play Console 릴리즈 노트는 언어별 태그와 글자 수 제한을 확인합니다.
+- 알려진 문제는 숨기지 말고 사용자 영향과 다음 처리 계획을 함께 기록합니다.
+
 릴리즈 전에는 아래 항목이 서로 일치하는지 확인합니다.
 
 - 태그 버전
@@ -498,6 +509,8 @@ git diff
 package.json
 pubspec.yaml
 build.gradle
+AndroidManifest.xml
+export_presets.cfg
 App version constant
 README badge
 CHANGELOG.md
@@ -519,6 +532,13 @@ git push origin vX.Y.Z
 ```
 
 태그는 반드시 버전 변경 커밋 이후에 생성합니다. 태그가 이전 커밋을 가리키면 릴리즈 버전과 앱 내부 버전이 달라질 수 있습니다.
+
+모바일 앱에서는 아래 항목도 함께 확인합니다.
+
+- Android `versionName` 또는 iOS `CFBundleShortVersionString`이 태그 버전과 일치하는지
+- Android `versionCode` 또는 iOS `CFBundleVersion`이 이전 릴리즈보다 증가했는지
+- 스토어 업로드용 AAB/IPA와 테스트 배포용 APK/기타 산출물이 같은 커밋에서 생성되었는지
+- 난독화 또는 축소 빌드를 사용한다면 mapping, symbols, dSYM 같은 디버깅 산출물을 보존했는지
 
 ---
 
@@ -602,11 +622,23 @@ gh release view vX.Y.Z
 - 릴리즈 생성 여부
 - **구동 파일 존재 확인**: APK, AAB, EXE, MSI, DMG, ZIP 등 실행 가능한 산출물 업로드 여부
 - **산출물 유효성**: 파일 크기가 0이 아니며, 예상되는 파일 확장자를 가지고 있는지 확인
+- **스토어 업로드 산출물 확인**: Play Store용 AAB, App Store용 IPA, Windows/MSIX 등 스토어 제출 파일이 필요한 프로젝트는 별도 산출물 존재 확인
+- **디버깅 산출물 확인**: R8/ProGuard mapping, native symbols, dSYM 등 스토어 콘솔 또는 crash 분석에 필요한 파일이 생성되었는지 확인
 - 릴리즈 노트가 최신 변경 사항을 반영하는지
 - `CHANGELOG.md`와 릴리즈 노트가 서로 모순되지 않는지
 - 배포 페이지 또는 문서 사이트가 의도한 소스를 서빙하는지
 
 릴리즈는 태그 푸시로 자동화되는 경우가 많으므로, 버전 커밋 후 태그가 올바른 커밋을 가리키는지 반드시 확인합니다.
+
+모바일 배포 프로젝트는 추가로 아래를 확인합니다.
+
+- 스토어 등록정보의 앱 이름, 패키지명, 버전, 지원 언어, 광고 포함 여부가 실제 빌드와 일치하는지
+- Play App Signing 또는 iOS signing을 사용하는 경우, 업로드 키와 최종 배포 서명 키의 차이를 문서화했는지
+- 키스토어, 인증서, provisioning profile, API 키, 광고 ID, OAuth client ID 같은 민감 정보가 저장소에 커밋되지 않았는지
+- 외부 SDK가 포함된 경우 필요한 스토어 정책 고지, 권한, 개인정보 처리방침, 테스트 계정, 콘솔 설정이 준비되었는지
+- 광고는 실제 광고 ID로 셀프 테스트하지 않습니다. 개발/내부 테스트 단계에서는 공식 테스트 ID 또는 테스트 모드를 사용합니다.
+- 실기 검증이 필요한 UI, 결제, 광고, 로그인, 리더보드, 푸시 알림은 에뮬레이터 또는 로컬 빌드만으로 완료 처리하지 않습니다.
+- 헤드리스/CI 빌드가 네이티브 플러그인, AAR, entitlement, capability, asset pack 등을 누락할 수 있는 프로젝트는 산출물 내부 또는 실기 동작으로 포함 여부를 확인합니다.
 
 ---
 
