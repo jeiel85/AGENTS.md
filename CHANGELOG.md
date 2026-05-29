@@ -1,5 +1,11 @@
 # CHANGELOG.md
 
+## v0.1.4 - 2026-05-29
+
+### Changed
+- Android/Play Store 릴리즈에서 데스크톱 또는 `Build` 폴더로 내보내는 `*-release-notes.txt`는 Play Console용 짧은 다국어 노트 형식으로 작성하도록 명시
+- GitHub Release 본문, `CHANGELOG.md` 전체 섹션, CI 로그, 산출물 경로를 Play Console용 TXT에 섞지 않도록 금지 규칙 추가
+
 ## v0.1.3 - 2026-05-29
 
 ### Changed

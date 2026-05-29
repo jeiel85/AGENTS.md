@@ -1,6 +1,16 @@
 # HISTORY.md
 
 ## 2026-05-29
+- 작업: Android/Play Store 릴리즈 TXT 내보내기 형식을 전역 규칙으로 고정
+- 변경 파일:
+  - AGENTS.md: 데스크톱 또는 `Build` 폴더용 `*-release-notes.txt`는 `<ko-KR>`/`<en-US>` 블록을 가진 짧은 Play Console용 노트로 작성하고, GitHub Release 본문/CHANGELOG 전체/CI 로그/산출물 경로를 섞지 않도록 규칙 추가
+  - CHANGELOG.md: v0.1.4 변경 사항 추가
+  - HISTORY.md: 작업 이력 기록
+- 검증: `git diff`로 변경 내용 확인
+- 결과: 성공
+- 후속 작업: Android 릴리즈 작업 시 기존 프로젝트의 `play_store/release_notes`, `fastlane` changelog, 최근 `Build` 폴더 release-notes TXT를 먼저 참고
+
+## 2026-05-29
 - 작업: 사용자 제안과 수정 요청에 대한 비판적·객관적 판단 규칙을 공통 지침으로 추가
 - 변경 파일:
   - AGENTS.md: 기본 커뮤니케이션 규칙에 자동 수용 금지, 사실과 근거 기반 판단, 반대 의견 및 대안 제시 원칙 추가
