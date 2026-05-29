@@ -3,7 +3,7 @@
 ## 2026-05-29
 - 작업: Android/Play Store 릴리즈 TXT 내보내기 형식을 전역 규칙으로 고정
 - 변경 파일:
-  - AGENTS.md: 데스크톱 또는 `Build` 폴더용 `*-release-notes.txt`는 `<ko-KR>`/`<en-US>` 블록을 가진 짧은 Play Console용 노트로 작성하고, GitHub Release 본문/CHANGELOG 전체/CI 로그/산출물 경로를 섞지 않도록 규칙 추가
+  - AGENTS.md: 데스크톱 또는 `Build` 폴더용 `*-release-notes.txt`는 `<ko-KR>`/`<en-US>` 블록을 가진 짧은 Play Console용 노트로 작성하고, GitHub Release 본문/CHANGELOG 전체/CI 로그/산출물 경로를 섞지 않도록 규칙 추가. 각 언어 본문 500자 이하 실측 검증 규칙 추가
   - CHANGELOG.md: v0.1.4 변경 사항 추가
   - HISTORY.md: 작업 이력 기록
 - 검증: `git diff`로 변경 내용 확인

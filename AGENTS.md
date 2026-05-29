@@ -522,6 +522,7 @@ Improved
 - 데스크톱/`Build` 폴더용 `*-release-notes.txt`에 GitHub Release URL, 로컬 산출물 경로, CI 로그, manifest 검증 로그, `CHANGELOG.md` 전체 섹션을 붙이지 않습니다.
 - GitHub Release 본문과 Play Console용 TXT를 같은 파일로 재사용하지 않습니다.
 - 기존 프로젝트에 `play_store/release_notes/vX.Y.Z.txt`, `fastlane/metadata/android/*/changelogs/*.txt`, `docs/release-notes/*release-notes.txt`가 있으면 그 형식을 먼저 참고합니다.
+- Play Console용 TXT를 내보낸 뒤에는 `<ko-KR>`와 `<en-US>` 각 블록의 태그 제외 본문 길이를 실제로 세고, 각 언어가 500자 이하인지 확인합니다. 하나라도 500자를 넘으면 내보내기 완료로 보고하지 않습니다.
 
 릴리즈 전에는 아래 항목이 서로 일치하는지 확인합니다.
 
