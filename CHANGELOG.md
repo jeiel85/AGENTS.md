@@ -4,14 +4,14 @@
 
 ### Added
 - GitHub 협업 및 공개 저장소 운영 방침을 `AGENTS.md` 공통 규칙으로 통합 (§30–§41)
-  - Pull Request First, 의미 있는 변경 단위, Issue 기반 개발
+  - Pull Request 활용(대규모·영향이 큰 변경 시 에이전트가 제안, 강제하지 않음), 의미 있는 변경 단위, Issue 기반 개발
   - 독립 리뷰, Pull Request 본문 품질 형식, 공개 저장소 완성도 점검
   - 릴리스 완료 기준, Upstream 기여 규칙
   - GitHub 지표 무결성 규칙 (통계·등급·기여 그래프를 개발 목표로 삼지 않음)
   - 자동화 규칙, 작업 완료 기준, 에이전트 의사결정 우선순위
 
 ### Changed
-- §2 Automation First와 §21 커밋·푸시·배포 규칙에 Pull Request First 원칙을 반영하여, GitHub로 추적·공유·공개되는 변경은 작업 브랜치와 PR로 반영하고 `main` 직접 커밋은 예외로 한정하도록 명확화
+- §2 Automation First와 §21 커밋·푸시·배포 규칙에 §30 Pull Request 활용을 연결하여, 일반 변경은 `main` 직접 커밋·푸시를 유지하고 대규모·영향이 큰 변경에만 Pull Request 사용을 제안하도록 명확화
 - §22 브랜치/PR 규칙에 상세 PR 본문 형식(§34) 우선 적용 및 §30 Branch Naming 규칙 연결 명시
 
 ## v0.1.4 - 2026-05-29
