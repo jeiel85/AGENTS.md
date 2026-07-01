@@ -334,6 +334,8 @@ gh run view <RUN_ID> --log-failed
 gh run rerun <RUN_ID> --failed
 ```
 
+> **중요 — AUP 경계:** GitHub Actions는 이 저장소를 빌드·테스트·릴리즈하는 CI/CD 목적에만 사용합니다. 음성 인식(STT), ML 추론, 미디어 인코딩, 크롤링, 암호화폐 채굴, 저장소 빌드와 무관한 상시 스케줄(cron) 배치처럼 범용·장시간 연산을 Actions에서 실행하지 않습니다. 이는 GitHub Acceptable Use Policies 위반으로 계정이 정지될 수 있습니다. 자세한 기준은 **30장(GitHub 플랫폼 정책 준수)**을 따릅니다.
+
 ---
 
 ## 16. Pre-Commit Review
@@ -795,6 +797,14 @@ gh release view vX.Y.Z
 관련 파일: package.json, build.gradle, CHANGELOG.md
 ```
 
+```text
+문제: 새벽 무인 전사(faster-whisper STT)를 GitHub Actions 스케줄 워크플로로 실행 → 계정 정지(AUP 위반). 리뷰 과정에서 여러 저장소에 실행파일/APK/ZIP을 커밋한 점도 함께 지적됨
+원인: GitHub Actions를 저장소 CI/CD가 아닌 범용·장시간 연산(음성 인식)에 사용. 빌드 산출물을 Releases가 아니라 저장소에 커밋
+해결: 전사 워크플로 제거(off-platform 이전), 저장소에 커밋된 .exe/.apk/.zip 산출물 삭제, 지적된 topic 정리
+다음부터 지킬 규칙: 30장(GitHub 플랫폼 정책 준수)을 따른다 — Actions는 CI/CD 전용, 바이너리는 Releases로만 배포, 산출물은 .gitignore 처리
+관련 파일: .github/workflows/, .gitignore, AGENTS.md 30장
+```
+
 ---
 
 ## 29. 에이전트별 진입 파일
@@ -806,3 +816,71 @@ gh release view vX.Y.Z
 ```
 
 규칙의 단일 진실 공급원은 항상 `AGENTS.md`입니다.
+
+---
+
+## 30. GitHub 플랫폼 정책(AUP) 준수
+
+GitHub는 소스 코드 호스팅과 협업을 위한 플랫폼입니다. 저장소, Actions, Releases를 그 목적 밖으로 사용하면 GitHub Acceptable Use Policies(AUP) 위반으로 계정이 예고 없이 정지될 수 있습니다. 새 저장소, 워크플로, 배포 방식을 만들 때 아래 기준을 반드시 지킵니다.
+
+### 30.1 GitHub Actions는 CI/CD 전용
+
+- Actions는 **이 저장소를 빌드·테스트·린트·릴리즈**하는 CI/CD 목적에만 사용합니다.
+- 저장소 빌드와 무관한 범용·장시간 연산을 Actions에서 실행하지 않습니다. 대표적인 AUP 위반 예:
+  - 음성 인식/전사(STT), ML 학습·추론, LLM 배치 호출
+  - 이미지·영상·오디오 인코딩/렌더링 파이프라인
+  - 웹 스크래핑, 크롤링, 대량 외부 요청
+  - 암호화폐 채굴, 상시 백그라운드 연산
+  - 저장소 CI와 무관한 데이터 수집·가공용 스케줄(cron) 잡
+- `schedule:` cron 워크플로는 링크 점검, 의존성 감사처럼 저장소 유지에 직접 필요한 가벼운 CI로만 제한하고, 빈도와 실행 시간을 최소화합니다.
+- 저장소 빌드와 무관한 연산이 필요하면 Actions가 아니라 로컬 머신, 본인 서버, 또는 그 목적에 맞는 클라우드 서비스에서 실행합니다.
+- 새 워크플로 추가 전 자문: "이 작업은 이 저장소를 빌드/테스트/릴리즈하기 위한 것인가?" 아니라면 추가하지 않습니다.
+
+### 30.2 바이너리·실행파일은 저장소가 아니라 Releases로
+
+- 컴파일된 실행파일·설치파일을 저장소에 커밋하지 않습니다: `.exe` `.msi` `.apk` `.aab` `.ipa` `.dmg` `.appimage`, 실행형 `.jar`, 배포 묶음 `.zip`/`.7z` 등.
+- 배포 산출물은 **GitHub Releases 애셋**으로만 제공하고, README·문서는 저장소 내부 파일이 아니라 Releases를 링크합니다. (23장 릴리즈 확인, 24장 Generated Files와 연계)
+- 아래 산출물/작업 폴더는 커밋하지 않고 `.gitignore`에 포함합니다.
+
+```gitignore
+# 빌드/릴리즈 산출물 — 저장소 커밋 금지, Releases로 배포
+*.exe
+*.msi
+*.apk
+*.aab
+*.ipa
+*.dmg
+*.appimage
+.build-outputs/
+.ci-artifacts/
+.release-assets/
+publish*/
+dist/
+```
+
+- 단, `gradle/wrapper/gradle-wrapper.jar`처럼 빌드 도구가 요구하는 표준 파일은 예외로 유지합니다.
+- CI가 만든 산출물은 워크플로 아티팩트 또는 Release 애셋으로 업로드하고 저장소에 커밋하지 않습니다.
+- 커밋 직전 `git status`와 `git diff --stat`으로 대용량 바이너리가 섞이지 않았는지 확인합니다. (16장 Pre-Commit Review)
+
+### 30.3 저장소를 스토리지·CDN으로 남용하지 않기
+
+- 저장소를 대용량 파일 보관소, 파일 배포용 CDN, 무단 콘텐츠 호스팅으로 사용하지 않습니다.
+- 대용량 에셋이 꼭 필요하면 Releases, Git LFS, 또는 외부 스토리지를 사용합니다.
+- 저작권·상표를 침해할 수 있는 타인의 자산을 그대로 올리지 않습니다.
+
+### 30.4 저장소 메타데이터(topic)
+
+- topic은 프로젝트 내용을 정확히 나타내는 것만 최소한으로 답니다.
+- 프로젝트와 무관하거나 오해를 살 수 있는 topic은 달지 않습니다.
+
+### 30.5 착수 전 자가 점검
+
+새 저장소 생성 또는 자동화 추가 전에 확인합니다. 하나라도 아니오이면 방식을 바꾼 뒤 진행합니다.
+
+```text
+[ ] 이 저장소의 워크플로는 전부 이 저장소의 CI/CD(빌드/테스트/릴리즈)만 수행하는가?
+[ ] 저장소 빌드와 무관한 범용·장시간 연산을 Actions에서 돌리지 않는가?
+[ ] 실행파일/설치파일/대용량 산출물을 저장소에 커밋하지 않고 Releases로 배포하는가?
+[ ] .gitignore가 빌드/릴리즈 산출물을 제외하는가?
+[ ] README는 저장소 내부 바이너리가 아니라 Releases를 링크하는가?
+```
