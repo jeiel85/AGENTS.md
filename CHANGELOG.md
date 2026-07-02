@@ -1,5 +1,11 @@
 # CHANGELOG.md
 
+## v0.2.1 - 2026-07-02
+
+### Changed
+- §15(GitHub Actions 중심 검증)에 AUP 경계 경고 추가 — "무거운 빌드는 Actions" 원칙이 전사·ML·인코딩 같은 CI/CD 무관 범용 연산까지 포함하는 것으로 오해되지 않도록 §42.1을 명시적으로 참조
+- §42.1(Actions는 CI/CD 전용)에 실제 사고 이력(2026-06, `kunsarang-baptist-church`에서 새벽 설교 Whisper 전사를 Actions 크론으로 돌려 계정 flagged) 명시 — 같은 실수 재발 방지
+
 ## v0.2.0 - 2026-06-26
 
 ### Added

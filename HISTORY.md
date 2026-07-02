@@ -1,5 +1,15 @@
 # HISTORY.md
 
+## 2026-07-02
+- 작업: GitHub Actions AUP 경계 규칙 강화(전사류 무거운 연산을 Actions에 올리지 않도록)
+- 변경 파일:
+  - AGENTS.md: §15에 AUP 경계 경고(§42.1 참조) 추가, §42.1에 2026-06 Whisper 전사 flag 사고 이력 추가
+  - CHANGELOG.md: v0.2.1 추가
+  - HISTORY.md: 작업 이력 기록
+- 배경: `kunsarang-baptist-church`가 새벽 설교 전사를 GitHub Actions 크론으로 실행 → 계정(jeiel85) flagged/정지. 전사는 로컬 PC(작업 스케줄러)→Redis/R2 게시로 이전, Actions 크론 워크플로 전부 제거·비활성화. 재발 방지를 위해 전역 지침에 명문화.
+- 검증: `git diff`로 §15·§42.1 문구, 섹션 번호 유지 확인
+- 결과: 성공
+
 ## 2026-06-26
 - 작업: 에이전틱 GitHub 협업 및 공개 저장소 운영 방침을 `AGENTS.md` 공통 규칙으로 통합
 - 변경 파일:
