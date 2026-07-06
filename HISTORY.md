@@ -1,5 +1,17 @@
 # HISTORY.md
 
+## 2026-07-06
+- 작업: §43 모델 하네스·§43.9 goal 프로토콜 문안 정비 및 전역 지침 동기화 (v0.4.1)
+- 변경 파일:
+  - AGENTS.md: §43 도입부에 "원 조항 우선·중복은 참조로" 원칙 명문화, §43.2–§43.7 중복 본문을 원 조항 참조로 압축, §43.8 모델명 상대 표현 정리, §43.9를 단일 모델 기본형 + 오케스트레이터 최적화형으로 재구성(벤더명 ultracode/Workflow·절대 모델명 Opus/Sonnet 제거)
+  - README.md: 모델 하네스 요약을 개선판 표현(분석 → 구현 → 감사, 상대 모델 등급)과 동기화
+  - CHANGELOG.md: v0.4.1 추가
+  - HISTORY.md: 작업 이력 기록
+- 배경: 이전 §43이 특정 모델명(Opus/Sonnet/Fable)과 벤더 기능명(ultracode/Workflow)에 의존해, 모델 등급 재편·비-Claude 툴에서 낡거나 사문화되는 문제. 상대 등급 표현과 단일 모델 폴백으로 일반화. 자기 검증 중 도입부 §29 오인용(파일 간 단일 진실 규정을 조항 간 우선순위 근거로 잘못 인용)을 발견해 제거
+- 흡수: 동일한 개선판 하네스를 5개 에이전틱 코딩 툴 전역 지침에 흡수 — `~/.claude/CLAUDE.md`(갱신, 한글 응답 규칙 보존), `~/.codex/AGENTS.md`, `~/.config/opencode/AGENTS.md`, `~/.config/kilo/AGENTS.md`(+`kilo.jsonc` instructions 연결), `~/.zcode/AGENTS.md`(z.ai ZCode) 신규 생성. 신규 4개 파일 내용 동일(md5 일치), 각 파일 상단에 6곳 동기화 주석 삽입
+- 검증: `git diff`로 §43 범위 내 변경(30+/28-)·섹션 번호 유지 확인, 전역 4개 파일 md5 일치·구버전 잔재(ultracode/절대 모델명) 0건 grep 확인
+- 결과: 성공
+
 ## 2026-07-04
 - 작업: §43.9 goal 실행 프로토콜(Goal Execution Protocol) 신설 — goal 작업을 분석(강한 모델) → 구현(Sonnet·ultracode/Workflow) → 감사(강한 모델) 3단계로 구조화
 - 변경 파일:
