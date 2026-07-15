@@ -1,16 +1,19 @@
 # CHANGELOG.md
 
-## Unreleased - 2026-07-14
+## Unreleased - 2026-07-15
 
 ### Changed
 - §20 버전 관리 규칙의 릴리스 하드닝 절차를 재정의 — '제안 후 사용자 확인' 방식을 대체해, 하드닝을 직접 구현하지 않고 버전 변경·태그·푸시 시점에 하드닝 후보를 GitHub Issue로 등록한 뒤 릴리스를 계속 진행하도록 변경(GitHub 원격·`gh` CLI가 없으면 Backlog Document로 대체)
 - §42.1 및 과거 이력에서 특정 개인 프로젝트 저장소의 정식 명칭을 일반 표현으로 대체
 - `AGENTS.md` 코어와 부록(`HARNESS.md`, `MOBILE-RELEASE.md`, `GITHUB-AUP.md`)을 물리적으로 분리 — 섹션 번호·헤더는 44개 전부 변경 없이 유지하고, §19·§20·§23·§42·§43·§44의 저빈도 참조 상세(모바일/스토어 서식, GitHub AUP 세부 체크리스트, 모델 하네스·목표 완결 기준 전체 절차문)만 이동, 매 세션 상시 로드되는 코어는 1,194줄에서 999줄로 감소(약 16.3%)
+- §30·§34·§35·§36·§37의 GitHub 협업 세부(Branch Naming, PR 본문 템플릿, 공개 저장소·Release Completion 체크리스트, 업스트림 기여 절차)를 신규 `GITHUB-COLLAB.md`로 추가 분리 — 코어는 999줄(52,439 bytes)에서 902줄(49,655 bytes)로 추가 감소(약 5.3%)
+- §44 목표 완결과 완성 기준을 5개 에이전틱 툴 전역 지침(Claude/Codex/OpenCode/Kilo/ZCode)에도 동기화 — `BACKLOG.md`의 미결정 항목 해소
 
 ### Documentation
 - HISTORY.md에 이번 지침 정리와 검증 내역을 기록
 - README.md를 최신 규칙 체계에 맞게 확장 — 문서 구성, 사용 절차, §20 릴리스 하드닝, §42 GitHub AUP, §43 모델 하네스, §44 목표 완결 흐름을 한눈에 볼 수 있도록 정리
 - README.md 문서 구성·사용 방법을 코어/부록 4파일 체계에 맞게 갱신
+- README.md에 `GITHUB-COLLAB.md` 문서 구성·사용법 항목 추가
 
 ## v0.5.0 - 2026-07-06
 
