@@ -1,6 +1,6 @@
 # GITHUB-COLLAB.md
 
-이 파일은 `AGENTS.md` §30(Pull Request 활용), §34(Pull Request Quality), §35(Public Repository Readiness), §36(Release Completion), §37(Upstream Contribution)에서 참조하는 세부 규칙입니다. Pull Request를 열 때, 릴리스를 마무리할 때, 공개 저장소를 점검할 때, 업스트림 오픈소스에 기여할 때 읽습니다.
+이 파일은 `AGENTS.md` §30(Pull Request 활용), §34(Pull Request Quality), §35(Public Repository Readiness), §36(Release Completion), §37(Upstream Contribution), §38(GitHub Metrics Integrity)에서 참조하는 세부 규칙입니다. Pull Request를 열 때, 릴리스를 마무리할 때, 공개 저장소를 점검할 때, 업스트림 오픈소스에 기여할 때 읽습니다.
 
 ---
 
@@ -122,3 +122,17 @@ Closes #123
   - 호환성 영향
 - 단순 기여 수 증가를 목적으로 사소하거나 의미 없는 변경을 제출하지 않습니다.
 - 외부 Pull Request 또는 코드 리뷰를 수행한 경우 관련 링크와 결과를 프로젝트 기록에 남깁니다.
+
+---
+
+### 38. 지표 무결성 — 금지 행위 전체 목록
+
+- 빈 커밋 생성, 의미 없는 커밋 분할, Pull Request 수를 늘리기 위한 인위적 작업 분할
+- 실제 검토가 없는 형식적 리뷰, 내용 없는 Issue 생성
+- Star, Follow, Fork 교환 또는 자동화
+- 대량 오탈자 Pull Request를 통한 기여 수 부풀리기
+- 테스트 결과 조작, 실행하지 않은 검증을 실행했다고 주장, 실패한 빌드를 성공한 것으로 기록
+- 자동 생성 콘텐츠를 검증 없이 대량 반영
+- 사용자를 오도하는 다운로드 수, 품질 수치, 성능 수치 표시
+
+모든 GitHub 활동은 제품 품질, 사용자 가치, 보안·개인정보 보호, 유지보수성, 협업 가능성, 재현성·추적 가능성, 문서 정확성, 배포 신뢰성 중 하나 이상을 실질적으로 향상해야 합니다.
