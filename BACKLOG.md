@@ -6,4 +6,5 @@
 
 ## Backlog
 
+- [ ] §1–§42 코어에도 하네스와 같은 기준의 감사 적용 검토 — 2026-08-01 §43·§44 축소 때 적용한 "모델이 이미 기본으로 하는 것은 적지 않는다" 기준을 코어 906줄에도 적용하면 상시 로드 용량을 더 줄일 수 있으나, 코어는 저장소 운영 규칙(커밋·릴리스·GitHub 정책)이라 하네스와 성격이 다르고 판단 기준도 달라야 함 (2026-08-01)
 - [ ] README 사용법에 GOALS/BACKLOG/DECISIONS 권장 저장소 구조 반영 검토 — agents-guidelines-bundle의 프로젝트 템플릿 요소(Lifecycle Stage, Current Goal 등). 이 저장소의 `Goals Document: README.md` 설정값 정리(README에 활성 목표 섹션 추가 또는 GOALS.md 분리) 포함 (2026-07-06)
